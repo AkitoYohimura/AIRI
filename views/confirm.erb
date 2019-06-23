@@ -1,0 +1,22 @@
+<link href='table.css' rel="stylesheet" type="text/css" />
+<h1>all user list</h1>
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>birthday</th>
+    <th>gender</th>
+  </tr>
+<% @all_usr.each do |usr| %>
+  <tr>
+    <td><%= usr[0] %></td>
+    <td><%= usr[1] %></td>
+    <td><%= usr[2] %></td>
+    <td><%= usr[3] %></td>
+  </tr>
+<% end %>
+
+<form action='logout' method='GET'>
+  <input type='submit' value='logout'>
+</form>
