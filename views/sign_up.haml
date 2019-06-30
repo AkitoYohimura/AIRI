@@ -1,0 +1,23 @@
+%h1 Sign Up
+%form{:action => '/users', :method => 'post'}
+  %fieldset
+    %p  
+      %label{:for => "id"} ID:
+      %input{:name => "id", :type => "text", :value => "0000"}
+    %p  
+      %label{:for => "name_jap"} 名前:
+      %input{:name => "name_jap", :type => "text", :value => "山田太郎"}
+    %p  
+      %label{:for => "name_eng"} Name:
+      %input{:name => "name_eng", :type => "text", :value => "YamadaTaro"}
+    %p  
+      %label{:for => "email"} Email:
+      %input{:name => "email", :type => "text", :value => "@mail.com"}
+    %p  
+      %label{:for => "password"} Password:
+      %input{:name => "password", :type => "password", :value => "1234"}
+    %p  
+      %label{:for => "confirm_password"} Confirm Password:
+      %input{:name =>  "confirm_password", :type => "password", :value => "1234"}
+    %p  
+      %input{:type => "submit", :value => "Sign Up"}

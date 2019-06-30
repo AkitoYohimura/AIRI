@@ -1,22 +1,25 @@
 <link href='table.css' rel="stylesheet" type="text/css" />
-<h1>all user list</h1>
+<h1>登録ユーザー一覧</h1>
 
 <table>
   <tr>
     <th>id</th>
-    <th>name</th>
-    <th>birthday</th>
-    <th>gender</th>
+    <th>name_jap</th>
+    <th>name_eng</th>
+    <th>email</th>
+    <th>admin_flg</th>
   </tr>
-<% @all_usr.each do |usr| %>
+<% @user.each do |usr| %>
   <tr>
-    <td><%= usr[0] %></td>
-    <td><%= usr[1] %></td>
-    <td><%= usr[2] %></td>
-    <td><%= usr[3] %></td>
+  <% usr.each do |data| %>
+    <td><%= data %></td>
+  <% end %>
   </tr>
 <% end %>
 
+<form action='logout' method='GET'>
+  <input type='submit' value='logout'>
+</form>
 <form action='logout' method='GET'>
   <input type='submit' value='logout'>
 </form>

@@ -1,46 +1,31 @@
 require 'sinatra'
 require 'sinatra/reloader'
-require 'redcarpet'
-require 'sqlite3'
+require 'logger' 
+require 'haml' 
+$:.unshift File.dirname(__FILE__)  
+require_relative 'models/users.rb'
+
+$log = Logger.new('log/app.log', 3, 1024 **2 )
 
 enable :sessions
 
-def connect_db(db)
-  database = SQLite3::Database.new("db/#{db}")
-end
-
-def check_login(database, usr_id, usr_pass)
-  sql = "SELECT * FROM reg_users WHERE usr_id=#{usr_id} AND usr_pass='#{usr_pass}'"
-  # database.execute(sql,@usr_id, @usr_pass)
-  database.execute(sql)
-end
-
-def insert_user(database, reg_id, reg_name)
-  # sql = "INSERT users from users WHRER "
-end
-
-def select_all(database)
-  sql = "SELECT * FROM all_users"
-  database.execute(sql)
-end
-
 get '/' do
-  @title = 'login_page'
+  @title = 'login page'
   erb :index
 end
 
 post '/confirm' do
-  @usr_id = params[:usr_id]
-  @usr_pass = params[:usr_pass]
-  redirect back if @usr_id.empty? | @usr_pass.empty?
-  database = connect_db('test_db.db')
-  @data = check_login(database, @usr_id, @usr_pass).flatten
+  @title = 'all user list'
+  user = Users.new(params)
+  redirect back if user.id.nil? | user.password.nil?
+  db = user.connect_db('user.db')
+  @data = user.check_login(db).flatten
   if @data.empty?
     redirect back
   else
     @title = 'user_list'
-    session[:usr_id] = @usr_id
-    @all_usr = select_all(database)
+    session[:user_id] = user.id
+    @all_user = select_all(database)
     erb :confirm
   end
 end
@@ -48,4 +33,27 @@ end
 get '/logout' do
   session.clear
   redirect '/'
+end
+
+get '/sign_up' do
+  if session[:user_id].nil?
+    redirect '/'
+  else
+    haml :sign_up
+  end
+end
+
+post '/users' do
+  if params[:password] == params[:confirm_password]
+    user = Users.new(params[:id], params[:name_jap], params[:name_eng], params[:password], params[:email], 0)
+    user = Users.new(params)
+
+    db = user.connect_db('user.db')
+    user.insert_user(db)
+    @user = user.select_all(db)
+    db.close
+    erb :confirm
+  else
+    redirect back
+  end
 end
