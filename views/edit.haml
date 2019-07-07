@@ -1,5 +1,5 @@
-%h1 Sign Up
-%form{:action => '/users', :method => 'post'}
+%h1 UPDATE
+%form{:action => '/update', :method => 'post'}
   %fieldset
     %p  
       %label{:for => "id"} ID:
@@ -20,4 +20,12 @@
       %label{:for => "confirm_password"} Confirm Password:
       %input{:name =>  "confirm_password", :type => "password", :value => "1234"}
     %p  
-      %input{:type => "submit", :value => "Sign Up"}
+      %input{:type => "submit", :value => "データ更新"}
+
+%h1 DELETE
+%form{:action => '/delete', :method => 'post'}
+  %fieldset
+    %p  
+      %label{:for => "id"} ID:
+      %input{:name => "id", :type => "text", :value => "0003"}
+      %input{:type => "submit", :value => "データ削除"}

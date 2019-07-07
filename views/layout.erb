@@ -5,10 +5,16 @@
 <title><%= @title%></title>
 <style>
   article, aside, dialog, figure, footer, header,
-  hgroup, menu, nav, section { display: block; }
+  hgroup, menu, nav, section, form { display: block; }
+  #logout_btn {float:right;}
 </style>
 </head>
 <body>
+  <%if @title!='login page'%>
+  <form action='logout' method='GET' id='logout_btn'>
+    <input type='submit' value='ログアウト'>
+  </form>
+  <%end%>
   <%= yield %>
 </body>
 </html>

@@ -7,19 +7,24 @@
     <th>name_jap</th>
     <th>name_eng</th>
     <th>email</th>
-    <th>admin_flg</th>
+    <th></th>
   </tr>
 <% @user.each do |usr| %>
   <tr>
   <% usr.each do |data| %>
-    <td><%= data %></td>
+    <% if usr[-1] == data %>
+      <td>
+        <form action='edit' method='get' class='btn'>
+          <%= "<button type='submit' name='id' value='#{usr[0]}'>編集</button>" %>
+        </form>
+      </td>
+    <% else %>
+      <td><%= data %></td>
+    <% end %>
   <% end %>
   </tr>
 <% end %>
 
-<form action='logout' method='GET'>
-  <input type='submit' value='logout'>
-</form>
-<form action='logout' method='GET'>
-  <input type='submit' value='logout'>
+<form action='sign_up' method='GET' class='btn'>
+  <input type='submit' value='新規ユーザー登録'>
 </form>
